@@ -5,6 +5,10 @@ import { SelectOption } from "../../universal/inputs/types/select-options"
 import axios from "axios"
 import { ValidateFields } from "../../../utils/validate-fields"
 import { FormatFields } from "../../../utils/format-fields"
+import { ufList } from "../../../config/ufList-config"
+import { GenresList } from "../../../config/genres-list-config"
+import { MaritalStatusList } from "../../../config/marital-status-list-config"
+import { LevelOfEducationList } from "../../../config/level-education-list-config"
 
 export const FormCadastroPaciente = () => {
     const validate = new ValidateFields;
@@ -29,46 +33,13 @@ export const FormCadastroPaciente = () => {
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
 
-    const handleCep = (value: string) => {
-        setCep(value);
-    }
-
-    const g = (value: string) => {
-
-    }
-
-    const genresList: SelectOption[] = [
-        { label: 'Masculino', value: 'm' },
-        { label: 'Feminino', value: 'f' },
-        { label: 'Outro', value: 'o' },
-    ]
-
-    const maritalStatusList: SelectOption[] = [
-        { label: 'Solteiro', value: 'solteiro' },
-        { label: 'Casado', value: 'casado' },
-        { label: 'Separado', value: 'separado' },
-        { label: 'Divorciado', value: 'divorciado' },
-        { label: 'Viúvo', value: 'viuvo' },
-    ]
-
-    const levelOfEducationList: SelectOption[] = [
-        { label: 'Educação infantil', value: 'educacaoinfantil' },
-        { label: 'Fundamental', value: 'fundamental' },
-        { label: 'Médio', value: 'medio' },
-        { label: 'Superior (Graduação)', value: 'superior' },
-        { label: 'Pós-graduação', value: 'pos-graduacao' },
-        { label: 'Mestrado', value: 'mestrado' },
-        { label: 'Doutorado', value: 'doutorado' },
-    ]
-
-
     useEffect(() => {
         if (cep.length === 9) {
             console.log("foibuscar o cep")
             const clearCep = cep.replace(/\D/g, "");
             const getAddress = async (cep: string) => {
                 const data = await axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((res) => { return res.data });
-                if (data) {
+                if (data && !data.erro) {
                     setStreet(data.logradouro);
                     setNeighborhood(data.bairro);
                     setCity(data.localidade);
@@ -77,6 +48,7 @@ export const FormCadastroPaciente = () => {
             }
 
             getAddress(clearCep);
+            console.log(uf);
         }
     }, [cep])
 
@@ -96,7 +68,10 @@ export const FormCadastroPaciente = () => {
 
                     <FormsInputSelect
                         label="Gênero"
-                        options={genresList}
+                        options={GenresList}
+                        value={gender}
+                        setValue={setGender}
+                        validateField={validate.validateNotEmpty}
                     />
 
                     <FormsInput
@@ -150,7 +125,10 @@ export const FormCadastroPaciente = () => {
 
                     <FormsInputSelect
                         label="Estado Civil"
-                        options={maritalStatusList}
+                        options={MaritalStatusList}
+                        value={maritalStatus}
+                        setValue={setMaritalStatus}
+                        validateField={validate.validateNotEmpty}
                     />
 
                     <FormsInput
@@ -164,7 +142,10 @@ export const FormCadastroPaciente = () => {
 
                     <FormsInputSelect
                         label="Grau de instrução"
-                        options={levelOfEducationList}
+                        options={LevelOfEducationList}
+                        value={levelOfEducation}
+                        setValue={setLevelOfEducation}
+                        validateField={validate.validateNotEmpty}
                     />
 
                     <FormsInput
@@ -235,14 +216,23 @@ export const FormCadastroPaciente = () => {
                         setValue={setCity}
                         value={city}
                     />
-                    <FormsInput
+                    {/* <FormsInput
                         label="Estado"
                         type="text"
                         validateField={validate.validateNotEmpty}
                         spellCheck={false}
                         setValue={setUf}
                         value={uf}
+                    /> */}
+
+                    <FormsInputSelect
+                        label="Estado"
+                        options={ufList}
+                        value={uf}
+                        setValue={setUf}
+                        validateField={validate.validateNotEmpty}
                     />
+
                 </div>
             </div>
         </div>
