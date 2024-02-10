@@ -10,7 +10,7 @@ export const CadastroPaciente = () => {
             name="Kaik Dorvalo"
             defaultSelectedIndex={1}
         >
-            <div className="w-full">
+            <div className="w-full pb-20">
                 <FormCadastroPaciente></FormCadastroPaciente>
             </div>
         </PageDefault>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { FormsInput } from "../../universal/inputs/forms-input"
 import { FormsInputSelect } from "../../universal/inputs/forms-input-select"
-import { SelectOption } from "../../universal/inputs/types/select-options"
 import axios from "axios"
 import { ValidateFields } from "../../../utils/validate-fields"
 import { FormatFields } from "../../../utils/format-fields"
@@ -9,6 +8,7 @@ import { ufList } from "../../../config/ufList-config"
 import { GenresList } from "../../../config/genres-list-config"
 import { MaritalStatusList } from "../../../config/marital-status-list-config"
 import { LevelOfEducationList } from "../../../config/level-education-list-config"
+import { InputYesNo } from "../../universal/inputs/forms-input-yes-no"
 
 export const FormCadastroPaciente = () => {
     const validate = new ValidateFields;
@@ -32,6 +32,18 @@ export const FormCadastroPaciente = () => {
     const [neighborhood, setNeighborhood ] = useState('');
     const [city, setCity] = useState('');
     const [uf, setUf] = useState('');
+
+    const [checkTreatment, setCheckTreatment] = useState(false);
+    const [questionTreatment, setQuestionTreatment] = useState('');
+
+    const [checkMedicalMedicine, setCheckMedicalMedicine] = useState(false);
+    const [questionMedicalMedicine, setQuestionMedicalMedicine] = useState('');
+
+    const [checkDrugs, setCheckDrugs] = useState(false);
+    const [questionDrugs, setQuestionDrugs] = useState('');
+
+    const [checkSmokes, setCheckSmokes] = useState(false);
+    const [questionSmokes, setQuestionSmokes] = useState('');
 
     useEffect(() => {
         if (cep.length === 9) {
@@ -233,6 +245,52 @@ export const FormCadastroPaciente = () => {
                         validateField={validate.validateNotEmpty}
                     />
 
+                </div>
+            </div>
+
+
+            <div className="flex flex-col gap-10">
+                <h1 className="text-xl font-md">Anamnese</h1>
+                <div className="flex flex-col gap-8">
+                    <InputYesNo
+                        label="Atualmente está em tratamento médico?"
+                        checkValue={checkTreatment}
+                        setCheckValue={setCheckTreatment}
+                        questionText="Qual?"
+                        questionValue={questionTreatment}
+                        setQuestionValue={setQuestionTreatment}
+                    >
+                    </InputYesNo>
+
+                    <InputYesNo
+                        label="Está tomando algum medicamento?"
+                        checkValue={checkMedicalMedicine}
+                        setCheckValue={setCheckMedicalMedicine}
+                        questionText="Quais?"
+                        questionValue={questionMedicalMedicine}
+                        setQuestionValue={setQuestionMedicalMedicine}
+                    >
+                    </InputYesNo>
+
+                    <InputYesNo
+                        label="Fez ou faz o uso de drogas?"
+                        checkValue={checkDrugs}
+                        setCheckValue={setCheckDrugs}
+                        questionText="Quais?"
+                        questionValue={questionDrugs}
+                        setQuestionValue={setQuestionDrugs}
+                    >
+                    </InputYesNo>
+
+                    <InputYesNo
+                        label="Fuma?"
+                        checkValue={checkSmokes}
+                        setCheckValue={setCheckSmokes}
+                        questionText="Há quanto tempo e quantos cigarros por dia?"
+                        questionValue={questionSmokes}
+                        setQuestionValue={setQuestionSmokes}
+                    >
+                    </InputYesNo>
                 </div>
             </div>
         </div>
