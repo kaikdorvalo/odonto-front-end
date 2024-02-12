@@ -13,6 +13,7 @@ export const CardList = (props: props) => {
                 return (
                     <Card
                         cardItem={card}
+                        key={card.title}
                     ></Card>
                 )
             })}

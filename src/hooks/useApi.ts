@@ -2,7 +2,7 @@ import axios from 'axios';
 import { User } from '../types/User';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://192.168.1.15:3000',
     withCredentials: true
 });
 

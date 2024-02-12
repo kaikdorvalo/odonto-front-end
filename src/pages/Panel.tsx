@@ -4,7 +4,6 @@ import { PageDefault } from "../components/components/page-structure/page-defaul
 import { CardItem } from "../classes/card-panel/Card";
 import { TableHeadConfig } from "../config/table-head-config";
 import { TableRowItem } from "../classes/table-panel/table-row";
-import { Table } from "../components/components/table/table";
 
 
 export const Panel = () => {
@@ -44,11 +43,6 @@ export const Panel = () => {
                     cardItems={cardItems}
                 />
 
-                <Table
-                    head={TableHeadConfig}
-                    rows={TableRows}
-                >
-                </Table>
             </div>
         </PageDefault>
     )

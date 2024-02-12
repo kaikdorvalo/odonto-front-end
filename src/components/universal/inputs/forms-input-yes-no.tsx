@@ -4,6 +4,7 @@ import { InputCheckBox } from "./input-checkbox"
 interface props {
     label: string
     checkValue: boolean
+    onlyNumbers?: boolean
     setCheckValue: Dispatch<SetStateAction<boolean>>
     questionText?: string
     questionValue?: string
@@ -24,8 +25,12 @@ export const InputYesNo = (props: props) => {
     };
     
     const handleQuestionInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        let value = event.target.value;
         if (props.setQuestionValue) {
-            props.setQuestionValue(event.target.value);
+            if (props.onlyNumbers) {
+                value = value.replace(/\D/g, "");
+            }
+            props.setQuestionValue(value);
             adjustTextareaHeight();
         }
     }
@@ -39,7 +44,7 @@ export const InputYesNo = (props: props) => {
                 ></InputCheckBox>
                 <p>{props.label}</p>
             </div>
-            <div className={`flex flex-col gap-5 items-start ps-14 ${props.checkValue ? 'block' : 'hidden'}`}>
+            <div className={`flex flex-col gap-5 items-start ps-14 ${props.questionValue != undefined && props.checkValue ? 'block' : 'hidden'}`}>
                 <p>{props.questionText}</p>
                 <textarea
                     ref={textareaRef}
