@@ -1,5 +1,6 @@
 import { MenuLeft } from "../menu/menu-left"
 import { MenuListConfig } from "../../../config/menu-list-config"
+import { useEffect } from "react"
 
 interface props {
     photoUrl: string,
@@ -12,22 +13,30 @@ export const PageDefault = (props: props) => {
 
     let listItems= MenuListConfig.items;
 
-    const handleConfigButtonClick = () => {
-        alert('config');
-    }
+    useEffect(() => {
+        const html = document.querySelector("html");
+        if (html) {
+            html.style.overflow = 'unset';
+        }
+    }, [])
 
     return (
-        <div className="flex font-poppins bg-base-200">
-            <aside className="w-1/4 h-screen bg-base-200">
+        <div className="flex flex-col font-poppins bg-base-200
+            lg:flex-row
+        ">
+            <aside className="w-full bg-base-100 flex
+                lg:w-1/4 lg:bg-base-200 lg:h-screen
+            ">
                 <MenuLeft
                     photoUrl={props.photoUrl}
                     name={props.name}
                     listItems={listItems}
                     defaultSelectedIndex={props.defaultSelectedIndex}
-                    configButtonClick={handleConfigButtonClick}
                 ></MenuLeft>
             </aside>
-            <div className="w-3/4 h-screen p-8 overflow-x-auto">
+            <div className="w-full
+                lg:w-3/4 lg:h-screen lg:p-8 lg:overflow-x-auto
+            ">
                 {props.children}
             </div>
         </div>

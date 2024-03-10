@@ -10,13 +10,13 @@ import { MaritalStatusList } from "../../../config/marital-status-list-config"
 import { LevelOfEducationList } from "../../../config/level-education-list-config"
 import { InputYesNo } from "../../universal/inputs/forms-input-yes-no"
 import { BloodPressureList } from "../../../config/blood-pressure-list-config"
-import { InputTextArea } from "../../universal/inputs/forms-input-textarea"
 import { BleedingList } from "../../../config/bleeding-list-config"
 import { HealingList } from "../../../config/healing-list-config"
 
 export const FormCadastroPaciente = () => {
     const validate = new ValidateFields;
     const format = new FormatFields;
+    
 
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
@@ -105,7 +105,6 @@ export const FormCadastroPaciente = () => {
 
     useEffect(() => {
         if (cep.length === 9) {
-            console.log("foibuscar o cep")
             const clearCep = cep.replace(/\D/g, "");
             const getAddress = async (cep: string) => {
                 const data = await axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((res) => { return res.data });
@@ -123,10 +122,14 @@ export const FormCadastroPaciente = () => {
     }, [cep])
 
     return (
-        <div className="w-full h-full flex flex-col gap-12 pb-20">
+        <div className="w-full flex flex-col gap-12 p-4
+            lg:pb-20 lg:h-full
+        ">
             <div className="flex flex-col gap-10">
                 <h1 className="text-xl font-md">Informações pessoais</h1>
-                <div className="grid grid-cols-3 gap-6 items-end">
+                <div className="grid grid-cols-1 gap-6 items-end
+                    lg:grid-cols-3
+                ">
                     <FormsInput
                         label="Nome"
                         type="text"
@@ -242,7 +245,9 @@ export const FormCadastroPaciente = () => {
 
             <div className="flex flex-col gap-10">
                 <h1 className="text-xl font-md">Endereço</h1>
-                <div className="grid grid-cols-3 gap-6 items-end">
+                <div className="grid grid-cols-1 gap-6 items-end
+                    lg:grid-cols-3
+                ">
                     <FormsInput
                         onlyNumbers={true}
                         validateField={validate.validateCEP}

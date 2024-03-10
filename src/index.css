@@ -77,3 +77,16 @@
     font-weight: 600;
     font-style: italic;
 }
+
+input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  /* Para tags select */
+  select {
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto;
+  }
